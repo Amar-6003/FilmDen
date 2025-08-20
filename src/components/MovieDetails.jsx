@@ -63,12 +63,6 @@ function MoviePage() {
       role="img"
       aria-label={movie.title}
       className="text-white min-h-screen flex flex-col md:flex-row justify-center pt-28 gap-12 p-4 items-center"
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
     >
       <img
         className="h-[30rem] w-[20rem] rounded-xl"
@@ -84,11 +78,11 @@ function MoviePage() {
           {movie.title}
         </span>
         <div className="space-y-3">
-          <p className="text-2xl font-light flex items-center gap-2">
+          <p className="text-2xl font-light flex items-center gap-2 mt-2">
             <IoLanguageSharp className="text-yellow-300" />
             {languageMap[movie.original_language]}
             <span className="flex items-center gap-2">
-              <FaRegClock className="text-yellow-300 ml-10" />
+              <FaRegClock className="text-yellow-300 ml-8 text-xl" />
               {movie.runtime ? formatRuntime(movie.runtime) : "Coming soon ⏳"}
             </span>
           </p>
@@ -101,7 +95,7 @@ function MoviePage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="w-[50vw] sm:w-[40vw] md:w-[30vw] lg:w-[13vw] md:py-4 mt-5 font-thin text-2xl text-black bg-yellow-400 rounded-lg flex items-center p-2 gap-2 justify-center hover:scale-110 duration-300">
+            <button className="w-[55vw] sm:w-[40vw] md:w-[30vw] lg:w-[13vw] md:py-4 mt-5 font-thin text-2xl text-black bg-yellow-400 rounded-lg flex items-center p-2 gap-2 justify-center hover:scale-110 duration-300">
               <FaRegPlayCircle />
               <span>Watch Trailer</span>
             </button>
