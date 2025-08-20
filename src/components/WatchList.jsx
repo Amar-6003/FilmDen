@@ -33,7 +33,7 @@ function WatchList({ watchList, setWatchList, handleRemoveWatchList }) {
     let temp = watchList.map((movieObj) => {
       return genreIds[movieObj.genre_ids[0]];
     });
-    temp = new Set(temp); // Set() repeated chijon ko ek baar deta hai, jaise multiple movie ke same genre hote hain so more genre ke boxex ban jayenge hence ek baar bane so used Set()
+    temp = new Set(temp); // Set() gives only one time the repeated things
     setGenreList(["All Genres", ...temp]);
   }, [watchList]);
 
@@ -115,8 +115,8 @@ function WatchList({ watchList, setWatchList, handleRemoveWatchList }) {
                       {movieObj.title}
                     </td>
                     <td>{movieObj.vote_average?.toFixed(1)}</td>
-                    {/* (?) ye lagaya .toFixed(* ke pehle so that agar kisi movie ko koi rating na mili hotoh error nahi dega sirf warning dega*/}
                     <td>{movieObj.popularity?.toFixed(2)}</td>
+                    {/* ?.toFixed() is used so that it will give warning instead of any errror, ifpopularity is not fetched */}
                     <td>{genreIds[movieObj.genre_ids[0]]}</td>
                     <td
                       onClick={() => {

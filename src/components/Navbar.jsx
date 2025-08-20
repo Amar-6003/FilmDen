@@ -9,16 +9,8 @@ const Navbar = ({ setPageNo, search, setSearch }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    // Page 1 pe reset
     setPageNo(1);
-
-    // Optional: Reset other filters if needed
-    // setCurrentWood("Indian"); // ya default filter
-
-    // Navigate to home
     navigate("/");
-
-    // Smooth scroll to top
     window.scrollTo({
       top: 0,
       behavior: "smooth",

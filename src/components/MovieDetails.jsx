@@ -10,20 +10,27 @@ function MoviePage() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // movie details
     axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
-      )
+      .get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
       .then((res) => setMovie(res.data));
 
     // movie trailer
     axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`
-      )
+      .get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`)
       .then((res) => {
         const trailer = res.data.results.find((v) => v.type === "Trailer");
         setTrailerKey(trailer?.key || null);
@@ -48,21 +55,25 @@ function MoviePage() {
   }
 
   const bgImage =
-    window.innerWidth < 768
-      ? movie.poster_path
+    windowWidth >= 768
+      ? movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+        : movie.poster_path
         ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
-        : "/fallback.jpg"
-      : movie.backdrop_path
-      ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
-      : movie.poster_path
-      ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
-      : "/fallback.jpg";
+        : "none"
+      : "none";
 
   return (
     <div
       role="img"
       aria-label={movie.title}
       className="text-white min-h-screen flex flex-col md:flex-row justify-center pt-28 gap-12 p-4 items-center"
+      style={{
+        backgroundImage: bgImage !== "none" ? `url(${bgImage})` : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <img
         className="h-[30rem] w-[20rem] rounded-xl"
