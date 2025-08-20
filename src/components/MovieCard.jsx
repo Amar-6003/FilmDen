@@ -30,6 +30,7 @@ function MovieCard({
         alt={movieObj.original_title}
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${poster_path})`,
+          boxShadow: "0 20px 40px rgba(0,0,0,0.8)",
         }}
         onClick={handleClick}
       >

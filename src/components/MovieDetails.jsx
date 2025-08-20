@@ -74,6 +74,7 @@ function MoviePage() {
         className="h-[30rem] w-[20rem] rounded-xl"
         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
         alt={movie.title}
+        style={{ boxShadow: "0 20px 40px rgba(0,0,0,1)" }}
       />
       <div className="flex flex-wrap flex-col gap-3 md:w-[70vw] md:pt-10">
         <span className="text-2xl">
