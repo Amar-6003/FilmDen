@@ -3,6 +3,7 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
+import RingLoader from "react-spinners/RingLoader";
 
 function Movies({
   pageNo,
@@ -14,6 +15,7 @@ function Movies({
   setCurrentWood,
   search,
 }) {
+  const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
 
@@ -50,7 +52,8 @@ function Movies({
         )
         .then((res) => {
           setMovies(res.data.results);
-        });
+        })
+        .finally(() => setLoading(false));
     } else {
       let lang = currentwood === "Indian" ? "hi" : "en";
       axios
@@ -60,7 +63,8 @@ function Movies({
         .then(function (res) {
           setMovies(res.data.results);
           setTotalPage(res.data.total_pages);
-        });
+        })
+        .finally(() => setLoading(false));
     }
   }, [search, pageNo, currentwood]);
 
@@ -91,21 +95,28 @@ function Movies({
           Hollywood
         </button>
       </div>
-      <div className="flex flex-row flex-wrap justify-evenly gap-4 pb-14">
-        {movies.map((movieObj) => {
-          return (
-            <MovieCard
-              key={movieObj.id}
-              movieObj={movieObj}
-              poster_path={movieObj.poster_path}
-              name={movieObj.original_title}
-              handleAddWatchList={handleAddWatchList}
-              handleRemoveWatchList={handleRemoveWatchList}
-              watchList={watchList}
-            />
-          );
-        })}
-      </div>
+      {loading ? (
+        <div className="flex justify-center min-h-screen items-center">
+          <RingLoader color="white" size={80} />
+        </div>
+      ) : (
+        <div className="flex flex-row flex-wrap justify-evenly gap-4 pb-14">
+          {movies.map((movieObj) => {
+            return (
+              <MovieCard
+                key={movieObj.id}
+                movieObj={movieObj}
+                poster_path={movieObj.poster_path}
+                name={movieObj.original_title}
+                handleAddWatchList={handleAddWatchList}
+                handleRemoveWatchList={handleRemoveWatchList}
+                watchList={watchList}
+              />
+            );
+          })}
+        </div>
+      )}
+
       <Pagination
         pageNo={pageNo}
         total_pages={totalPage}

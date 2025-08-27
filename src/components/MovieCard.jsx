@@ -26,7 +26,7 @@ function MovieCard({
       <div
         role="img"
         aria-label={movieObj.title}
-        className="h-[65vh] w-[280px] md:w-[20vw] mt-8 bg-center bg-cover bg-no-repeat rounded-xl hover:cursor-pointer hover:scale-105 duration-300 flex flex-col justify-between items-end border border-white"
+        className="h-[60vh] xl:h-[65vh] w-[280px] lg:w-[20vw] mt-8 bg-center bg-cover bg-no-repeat rounded-xl hover:cursor-pointer hover:scale-105 duration-300 flex flex-col justify-between items-end border border-white"
         alt={movieObj.original_title}
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${poster_path})`,
